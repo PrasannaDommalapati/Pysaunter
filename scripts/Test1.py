@@ -15,3 +15,4 @@ class CheckTest1(SFDriverScript):
         login = SFLoginPage(self.driver)
         login.do_login()
 #         assert login.is_logged_in()
+#This is a test from prasanna
