@@ -1,0 +1,47 @@
+package TestAutomation;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class NationalSearch extends BasePage{
+	
+	public NationalSearch(WebDriver driver)
+	{
+		super(driver);
+	}
+
+	
+	Select dropDown;
+	BasePage basepage = new BasePage(driver);
+	
+	public void searchOffender()
+	{
+		String fName = "Prasanna";//initializing first name
+		String lName = "kc";//initializing last name
+		driver.findElement(By.xpath("//input[@id='SearchForm:FirstName']")).sendKeys(fName);
+		driver.findElement(By.xpath("//input[@id='SearchForm:LastName']")).sendKeys(lName);
+		dropDown = new Select(driver.findElement(By.xpath("//select[@id='SearchForm:NationalSearch']")));
+		dropDown.selectByIndex(1);
+		driver.findElement(By.xpath("//input[@id='SearchForm:searchButton']")).click();
+	}
+	
+	public void addOffender()
+	{
+		
+		System.out.println("Adding an Offender");
+		driver.findElement(By.xpath("//input[@id='SearchForm:j_id_id149']")).click();
+		basepage.printPageTitle();
+		dropDown = new Select(driver.findElement(By.xpath("//select[@id='addOffenderForm:Trust']")));
+		dropDown.selectByIndex(0);
+		basepage.readExcel();
+		int i = basepage.rowCount(0);
+		System.out.println("Adding an Offender"+i);
+		basepage.cellLocation("Add Offender");
+	}
+	
+	public void deleteOffender()
+	{
+		
+	}
+}
