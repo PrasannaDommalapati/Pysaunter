@@ -1,0 +1,288 @@
+package TestAutomation;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class BasePage {
+	
+	WebDriver driver;
+	XSSFWorkbook wb;
+	XSSFSheet mySheet;
+	String dXPath = "//div[@class = 'linkWrapper']//*[contains(text(), '%s')]";
+	
+	public BasePage(WebDriver driver)
+	{
+		this.driver = driver;
+	}
+
+	// ===================== NDelius Pages Methods=========================
+		
+	public void goToHome(String home)
+	{
+		String pageName = driver.getTitle();
+		if(pageName.equals("National Delius Home Page"))
+		{
+			String xpath = String.format(dXPath, home);
+			driver.findElement(By.xpath(xpath)).click();
+		}else
+			driver.findElement(By.xpath("//*[@id='linkNavigation1Home']")).click();
+	}
+	
+	public void goToExit(String exit)
+	{
+		String pageName = driver.getTitle();
+		if(pageName.equals("National Delius Home Page"))
+		{
+			String xpath = String.format(dXPath, exit);
+			driver.findElement(By.xpath(xpath)).click();
+		}else
+			driver.findElement(By.xpath("//*[@id='linkNavigation1Exit']")).click();
+	}
+	
+	public void goToNationalSearch(String ns)
+	{
+		String pageName = driver.getTitle();
+		if(pageName.equals("National Delius Home Page"))
+		{
+			String xpath = String.format(dXPath, ns);
+			driver.findElement(By.xpath(xpath)).click();
+		}else
+			driver.findElement(By.xpath("//*[@id='linkNavigation1Search']")).click();
+	}
+	
+	public void goToRecentlyViewed(String rv)
+	{
+		String pageName = driver.getTitle();
+		if(pageName.equals("National Delius Home Page"))
+		{
+			String xpath = String.format(dXPath, rv);
+			driver.findElement(By.xpath(xpath)).click();
+		}else
+			driver.findElement(By.xpath("//*[@id='linkNavigation1RecentlyViewedOffenders']")).click();
+	}
+	
+	public void goToOfficerDairy(String od)
+	{
+		String pageName = driver.getTitle();
+		if(pageName.equals("National Delius Home Page"))
+		{
+			String xpath = String.format(dXPath, od);
+			driver.findElement(By.xpath(xpath)).click();
+		}else
+			driver.findElement(By.xpath("//*[@id='linkNavigation1OfficerDiary']")).click();
+	}
+	
+	public void goToCourtDairy(String cd)
+	{
+		String pageName = driver.getTitle();
+		if(pageName.equals("National Delius Home Page"))
+		{
+			String xpath = String.format(dXPath, cd);
+			driver.findElement(By.xpath(xpath)).click();
+		}else
+			driver.findElement(By.xpath("//*[@id='linkNavigation1CourtDiary']")).click();
+	}
+	
+	public void goToCaseManagement(String cm)
+	{
+		String pageName = driver.getTitle();
+		if(pageName.equals("National Delius Home Page"))
+		{
+			String xpath = String.format(dXPath, cm);
+			driver.findElement(By.xpath(xpath)).click();
+		}else
+			driver.findElement(By.xpath("//*[@id='linkNavigation1CaseManagement']/a")).click();
+	}
+	public void goToApprovedPremisesDairy(String apd)
+	{
+		String pageName = driver.getTitle();
+		if(pageName.equals("National Delius Home Page"))
+		{
+			String xpath = String.format(dXPath, apd);
+			driver.findElement(By.xpath(xpath)).click();
+		}else
+			driver.findElement(By.xpath("//*[@id='linkNavigation1HostelDiary']")).click();
+	}
+	public void gotoUpwProjectDairy(String ud)
+	{
+		String pageName = driver.getTitle();
+		if(pageName.equals("National Delius Home Page"))
+		{
+			String xpath = String.format(dXPath, ud);
+			driver.findElement(By.xpath(xpath)).click();
+		}else
+			driver.findElement(By.xpath("//*[@id='linkNavigation1UnpaidWorkProjectDiary']/a")).click();
+	}
+	public void goToUPWSearch(String us)
+	{
+		String pageName = driver.getTitle();
+		if(pageName.equals("National Delius Home Page"))
+		{
+			String xpath = String.format(dXPath, us);
+			driver.findElement(By.xpath(xpath)).click();
+		}else
+			driver.findElement(By.xpath("//*[@id='linkNavigation1UnpaidWorkSearch']/a")).click();
+	}
+	public void gotoUPWProjects(String up)
+	{
+		String pageName = driver.getTitle();
+		if(pageName.equals("National Delius Home Page"))
+		{
+			String xpath = String.format(dXPath, up);
+			driver.findElement(By.xpath(xpath)).click();
+		}else
+			driver.findElement(By.xpath("//*[@id='linkNavigation1UnpaidWorkProjectList']/a")).click();
+	}
+	
+	public void goToDataMaintainance(String dm)
+	{
+		String pageName = driver.getTitle();
+		if(pageName.equals("National Delius Home Page"))
+		{
+			String xpath = String.format(dXPath, dm);
+			driver.findElement(By.xpath(xpath)).click();
+		}else
+			driver.findElement(By.xpath("//*[@id='linkNavigation1DataMaintenance']")).click();
+	}
+	
+	public void goToReferenceData(String rd)
+	{		
+		String pageName = driver.getTitle();
+		if(pageName.equals("National Delius Home Page"))
+		{
+			String xpath = String.format(dXPath, rd);
+			driver.findElement(By.xpath(xpath)).click();
+		}else
+			driver.findElement(By.xpath("//*[@id='linkNavigation1ReferenceData']")).click();
+	}
+	public void goToUserAdministration(String ua)
+	{
+		String pageName = driver.getTitle();
+		if(pageName.equals("National Delius Home Page"))
+		{
+			String xpath = String.format(dXPath, ua);
+			driver.findElement(By.xpath(xpath)).click();
+		}else
+			driver.findElement(By.xpath("//*[@id='linkNavigation1UserAdministration']/a")).click();
+	}
+	
+	public void goToUserPreferences(String up)
+	{
+		String pageName = driver.getTitle();
+		if(pageName.equals("National Delius Home Page"))
+		{
+			String xpath = String.format(dXPath, up);
+			driver.findElement(By.xpath(xpath)).click();
+		}else
+			driver.findElement(By.xpath("//*[@id='linkNavigation1Preferences']")).click();
+	}
+	
+	//################################# Utility Methods ###################################
+	
+	public void waitForSomeTime()
+	{
+		try{
+			//Thread.sleep(50000L);
+			driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public void printPageTitle()
+	{
+		String title = driver.getTitle();
+		System.out.println("The title of page you have visited is:-"+title);
+		
+	}
+	
+	public void switchWindow()
+	{
+		String parentWindow = driver.getWindowHandle();
+		Set<String> handles =  driver.getWindowHandles();
+		   for(String windowHandle  : handles)
+		       {
+		       if(!windowHandle.equals(parentWindow))
+		          {
+		    	   driver.switchTo().window(windowHandle);//<!--Perform your operation here for new window/ to child window-->
+		         //driver.switchTo().window(parentWindow); //Control to parent window
+		         driver.manage().window().maximize();
+		          }
+		       }
+		   
+	} // End of switching window method.
+	
+	//==============================Excel Functions========================================
+	public void readExcel()
+	{
+		String xlPath = "C:\\NDeliusAutomation\\src\\main\\java\\bclResources\\InputDataVer 1.2.xlsx";
+		try {
+			File ff = new File(xlPath);
+			FileInputStream fis = new FileInputStream(ff);
+			 wb = new XSSFWorkbook(fis);
+			 
+		} catch (Exception e) {
+			System.out.println(""+e);
+		}
+	}
+	
+	public String getData(int sheetnum, int row, int col)
+	{
+		mySheet = wb.getSheetAt(sheetnum);
+		String data = mySheet.getRow(row).getCell(col).getStringCellValue();
+		return data;
+		
+	}
+	public int rowCount(int sheetIndex)
+	{		
+		int count = wb.getSheetAt(sheetIndex).getLastRowNum();
+		count = count+1;
+		return count;	
+	}
+
+public int cellLocation(String textSearch) {
+	int k =0;
+	for (int i=0; i<rowCount(0); i++)
+	{
+		for(int j=0 ;j< 10; j++)
+		{
+		
+			try
+			{
+				String testID = getData(0, i, j);// reading excel in the sheet1 from i row and j col
+				Set<String> testData = new TreeSet<String>();
+				testData.add(testID);
+				
+				Iterator<String> testdata_finder = testData.iterator();
+				String passingData = (String)testdata_finder.next();
+				
+				//System.out.println(passingData);
+				if(!passingData.isEmpty())
+				{
+					//System.out.println("passing data not empty"+i+"============="+j);
+						if(passingData.contains(textSearch))
+						{
+							System.out.println("Location of a row is::"+(i)+"====Column location is "+(j));
+							k = i;
+						}//finding the text in the cell starts with...
+				}//end of finding empty cell (exit place if the cell is empty in excel sheet)	
+			}
+			catch(Exception e)
+			{
+			//catching an exception if the cell is empty
+			}
+		}
+	}
+	return k;
+}
+
+}
