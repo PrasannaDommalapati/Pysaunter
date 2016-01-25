@@ -1,0 +1,177 @@
+package TestAutomation;
+
+import org.junit.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+
+public class CommunityOrder {
+	
+	static WebDriver driver;	
+	BasePage basepage = new BasePage(driver);
+	NationalSearch nSearch = new NationalSearch(driver);
+	CaseManagement cMgmt = new CaseManagement(driver);
+	OffenderIndex oIndex = new OffenderIndex(driver);
+	AddOffender aOffender = new AddOffender(driver);
+	AddAddresses aAddresses = new AddAddresses(driver);
+	InternalTransfer iTransfer = new InternalTransfer(driver);
+	AddEvent aEvent = new AddEvent(driver);
+	
+	@BeforeClass
+	public static void startNDelius()
+	{
+		if(driver == null)
+		{
+			driver = new FirefoxDriver();
+			System.out.println("==================Welcome to NDelius Automation Testing===================");		
+	        driver.navigate().to("http://paulinem:Password1@192.168.9.1:7001/NDelius-war/");	
+	        
+	    }	
+	}
+	
+	@Test
+	public void addNewOffender() throws InterruptedException
+	{
+		basepage.switchWindow();
+		basepage.waitForSomeTime();
+		basepage.goToNationalSearch("National Search");
+		basepage.waitForSomeTime();
+		//Search for the offender
+		nSearch.searchOffender();		
+		//CP: If no records matched in this criteria means this Offender never in our database
+		try{
+			Thread.sleep(10000L);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	
+		if(driver.findElement(By.tagName("body")).getText().contains("No Records matched the search criteria."))
+		{
+			//click on add offender
+			aOffender.addOffender();
+			//enter offender details
+			aOffender.enterOffenderDetails();
+			//click on save button	
+			aOffender.clickSave();			
+							
+		}
+		else
+		{
+			System.out.println("The Offender You are trying to add into NDelius already EXISTED. Please Verify and try Again");
+		}
+		basepage.goToNationalSearch("National Search");
+		//CP: Verify the Offender has been added in to the database
+		nSearch.searchOffender();
+		Thread.sleep(5000L);
+		Assert.assertFalse(driver.findElement(By.tagName("body")).getText().contains("No Records matched the search criteria."));
+	}
+	@Ignore
+	@Test
+	public void addMainAddress()
+	{
+		basepage.switchWindow();
+		basepage.waitForSomeTime();
+		basepage.goToNationalSearch("National Search"); // This line take the control the National Search Page
+		nSearch.searchOffender();//Searching for an Offender to delete from Ndelius.
+		if(driver.findElement(By.tagName("body")).getText().contains("No Records matched the search criteria."))
+		{
+			System.out.println("Offender doesn't exist to delete from Ndelius");
+		}
+		else
+		{
+			nSearch.viewOffenderSummary();
+			cMgmt.goToOffenderIndex();
+			oIndex.goToAddresses();
+			aAddresses.addAddressBtn();
+			basepage.printPageTitle();
+			aAddresses.enterAddressDetails();
+			aAddresses.cancelAdderess();
+			basepage.goToHome("National Delius Home Page");
+		}
+		
+	}
+	@Ignore
+	@Test
+	public void addOffenderManager()
+	{
+		basepage.switchWindow();
+		basepage.waitForSomeTime();
+		basepage.goToNationalSearch("National Search"); // This line take the control the National Search Page
+		nSearch.searchOffender();//Searching for an Offender to delete from Ndelius.
+		if(driver.findElement(By.tagName("body")).getText().contains("No Records matched the search criteria."))
+		{
+			System.out.println("Offender doesn't exist to delete from Ndelius");
+		}
+		else
+		{
+			nSearch.viewOffenderSummary();
+			cMgmt.goToOffenderIndex();
+			basepage.printPageTitle();
+			iTransfer.goToInternalTransfer();
+			iTransfer.addOffenderManager();
+			iTransfer.saveOffenderManager();
+			basepage.goToHome("National Delius Home Page");
+			basepage.printPageTitle();
+		}
+		
+	}
+	@Ignore
+	@Test
+	public void createNewEvent()
+	{
+		basepage.switchWindow();
+		basepage.waitForSomeTime();
+		basepage.goToNationalSearch("National Search"); // This line take the control the National Search Page
+		nSearch.searchOffender();//Searching for an Offender to delete from Ndelius.
+		if(driver.findElement(By.tagName("body")).getText().contains("No Records matched the search criteria."))
+		{
+			System.out.println("Offender doesn't exist to delete from Ndelius");
+		}
+		else
+		{
+			nSearch.viewOffenderSummary();
+			aEvent.goToEventList();
+			aEvent.addNewEvent();
+			aEvent.saveNewEvent();
+			aEvent.cancelEvent();
+			basepage.goToHome("National Delius Home Page");
+		}
+		
+	}
+	
+	@Test
+	public void deleteOffender()
+	{
+		//basepage.switchWindow();
+		basepage.waitForSomeTime();
+		basepage.goToNationalSearch("National Search"); // This line take the control the National Search Page
+		nSearch.searchOffender();//Searching for an Offender to delete from Ndelius.
+		if(driver.findElement(By.tagName("body")).getText().contains("No Records matched the search criteria."))
+		{
+			System.out.println("Offender doesn't exist to delete from Ndelius");
+		}
+		else
+		{
+			nSearch.viewOffenderSummary();
+			basepage.printPageTitle();
+			basepage.waitForSomeTime();
+			cMgmt.goToOffenderIndex();
+			basepage.printPageTitle();
+			oIndex.deleteOffender();
+		}
+		
+		
+	}
+	
+	@AfterClass
+	public static void closeNDelius()
+	{
+		System.out.println("==================Thanks for vising NDelius Automation ===================");		
+		driver.close();
+		driver = null;
+	}
+	
+	
+}
