@@ -205,6 +205,18 @@ public class BasePage {
 		
 	}
 	
+	public String pastDate(int days)
+	{
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
+        Date myDate = new Date(System.currentTimeMillis());
+        System.out.println("result is "+ dateFormat.format(myDate));
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(myDate);
+        cal.add(Calendar.DATE, -days);
+        System.out.println(dateFormat.format(cal.getTime()));	
+        return dateFormat.format(cal.getTime());
+	}
+	
 	public void switchWindow()
 	{
 		String parentWindow = driver.getWindowHandle();
