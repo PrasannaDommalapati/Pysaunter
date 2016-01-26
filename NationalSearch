@@ -17,31 +17,41 @@ public class NationalSearch extends BasePage{
 	
 	public void searchOffender()
 	{
-		String fName = "Prasanna";//initializing first name
-		String lName = "kc";//initializing last name
-		driver.findElement(By.xpath("//input[@id='SearchForm:FirstName']")).sendKeys(fName);
-		driver.findElement(By.xpath("//input[@id='SearchForm:LastName']")).sendKeys(lName);
-		dropDown = new Select(driver.findElement(By.xpath("//select[@id='SearchForm:NationalSearch']")));
-		dropDown.selectByIndex(1);
-		driver.findElement(By.xpath("//input[@id='SearchForm:searchButton']")).click();
-	}
-	
-	public void addOffender()
-	{
-		
-		System.out.println("Adding an Offender");
-		driver.findElement(By.xpath("//input[@id='SearchForm:j_id_id149']")).click();
-		basepage.printPageTitle();
-		dropDown = new Select(driver.findElement(By.xpath("//select[@id='addOffenderForm:Trust']")));
-		dropDown.selectByIndex(0);
 		basepage.readExcel();
-		int i = basepage.rowCount(0);
-		System.out.println("Adding an Offender"+i);
-		basepage.cellLocation("Add Offender");
+		int row = basepage.cellLocation("Add Offender Auto");
+		String lName = basepage.getData(0, row, 9);
+		String fName = basepage.getData(0, row, 6);
+		basepage.elementFinder("//input[@id='SearchForm:FirstName']").clear();
+		basepage.elementFinder("//input[@id='SearchForm:FirstName']").sendKeys(fName);
+		basepage.elementFinder("//input[@id='SearchForm:LastName']").clear();
+		basepage.elementFinder("//input[@id='SearchForm:LastName']").sendKeys(lName);;
+		dropDown = new Select(basepage.elementFinder("//select[@id='SearchForm:NationalSearch']"));
+		dropDown.selectByIndex(1);
+		basepage.elementFinder("//input[@id='SearchForm:searchButton']").click();
 	}
 	
-	public void deleteOffender()
+	
+	
+	public void webTableFun()
 	{
+		basepage.goToRecentlyViewed("Recently Viewed");
+		String xpath_start = "//*[@id='j_id_id11:offenderTable:tbody_element']/tr[";
+		String xpath_mid = "]/td[";
+		String xpath_end = "]";
+		for(int row =1;row<=10;row++)
+		{
+			for(int col = 1; col<=6; col++)
+			{
+				String offList = driver.findElement(By.xpath(xpath_start+row+xpath_mid+col+xpath_end)).getText();
+				System.out.print(offList+"----");
+			}
+			System.out.println();
+		}
 		
+	}
+
+	public void viewOffenderSummary()
+	{
+		basepage.elementFinder("//*[@id='offendersTable']/tbody/tr/td[10]/a").click();
 	}
 }
